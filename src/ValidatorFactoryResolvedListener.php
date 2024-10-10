@@ -42,7 +42,9 @@ class ValidatorFactoryResolvedListener implements ListenerInterface
         });
 
         $validatorFactory->resolver(function (...$args) {
-            return new Validator(...$args);
+            $validator = new Validator(...$args);
+            $validator->addNumericRule('decimal');
+            return $validator;
         });
 
         foreach (AnnotationCollector::getClassesByAnnotation(ValidationRule::class) as $class => $annotation) {
