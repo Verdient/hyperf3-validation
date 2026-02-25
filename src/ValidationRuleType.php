@@ -6,6 +6,7 @@ namespace Verdient\Hyperf3\Validation;
 
 /**
  * 验证规则类型
+ *
  * @author Verdient。
  */
 enum ValidationRuleType: string

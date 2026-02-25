@@ -9,12 +9,14 @@ use Throwable;
 
 /**
  * 校验异常
+ *
  * @author Verdient。
  */
 class ValidationException extends ServerException
 {
     /**
-     * @inheritdoc
+     * 构造函数
+     *
      * @author Verdient。
      */
     public function __construct(

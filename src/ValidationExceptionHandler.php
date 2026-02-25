@@ -9,27 +9,29 @@ use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 use Hyperf\HttpServer\Exception\Http\EncodingException;
 use Hyperf\Validation\ValidationException as ValidationValidationException;
+use Override;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 use Verdient\Hyperf3\Validation\ValidationException;
 
 /**
  * 校验异常处理器
+ *
  * @author Verdient。
  */
 class ValidationExceptionHandler extends ExceptionHandler
 {
     /**
-     * @inheritdoc
      * @author Verdient。
      */
+    #[Override]
     public function handle(Throwable $throwable, ResponseInterface $response)
     {
         $this->stopPropagation();
         if ($throwable instanceof ValidationException) {
             $code = $throwable->getCode();
             $message = $throwable->getMessage();
-            $errors = [];
+            $errors = [$message];
         } else {
             /** @var ValidationValidationException $throwable */
             $code = $throwable->status;
@@ -54,9 +56,9 @@ class ValidationExceptionHandler extends ExceptionHandler
     }
 
     /**
-     * @inheritdoc
      * @author Verdient。
      */
+    #[Override]
     public function isValid(Throwable $throwable): bool
     {
         return $throwable instanceof ValidationValidationException

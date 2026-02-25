@@ -8,6 +8,7 @@ use Hyperf\Validation\Request\FormRequest;
 
 /**
  * 所有输入请求
+ *
  * @author Verdient。
  */
 class InputRequest extends FormRequest

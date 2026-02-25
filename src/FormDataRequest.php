@@ -3,9 +3,11 @@
 namespace Verdient\Hyperf3\Validation;
 
 use Hyperf\Validation\Request\FormRequest;
+use Override;
 
 /**
  * FormData 请求
+ *
  * @author Verdient。
  */
 class FormDataRequest extends FormRequest
@@ -13,9 +15,9 @@ class FormDataRequest extends FormRequest
     use AsAuthorized;
 
     /**
-     * @inheritdoc
      * @author Verdient。
      */
+    #[Override]
     protected function validationData(): array
     {
         $data = $this->getParsedBody();

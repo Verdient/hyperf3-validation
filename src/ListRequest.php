@@ -2,14 +2,18 @@
 
 namespace Verdient\Hyperf3\Validation;
 
+use Override;
+
 /**
  * 列表请求
+ *
  * @author Verdient。
  */
 class ListRequest extends QueryRequest
 {
     /**
      * 最大分页大小
+     *
      * @author Verdient。
      */
     protected function maxPageSize(): int
@@ -18,9 +22,9 @@ class ListRequest extends QueryRequest
     }
 
     /**
-     * @inheritdoc
      * @author Verdient。
      */
+    #[Override]
     protected function getRules(): array
     {
         return array_merge([

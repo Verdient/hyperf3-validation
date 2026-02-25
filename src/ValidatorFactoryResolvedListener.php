@@ -8,19 +8,22 @@ use Exception;
 use Hyperf\Di\Annotation\AnnotationCollector;
 use Hyperf\Event\Contract\ListenerInterface;
 use Hyperf\Validation\Event\ValidatorFactoryResolved;
+use Override;
 
+use function Hyperf\Config\config;
 use function Hyperf\Support\make;
 
 /**
  * 验证器工厂解决事件监听器
+ *
  * @author Verdient。
  */
 class ValidatorFactoryResolvedListener implements ListenerInterface
 {
     /**
-     * @inheritdoc
      * @author Verdient。
      */
+    #[Override]
     public function listen(): array
     {
         return [
@@ -29,9 +32,9 @@ class ValidatorFactoryResolvedListener implements ListenerInterface
     }
 
     /**
-     * @inheritdoc
      * @author Verdient。
      */
+    #[Override]
     public function process(object $event): void
     {
         /** @var ValidatorFactory */
@@ -47,7 +50,10 @@ class ValidatorFactoryResolvedListener implements ListenerInterface
             return $validator;
         });
 
-        foreach (AnnotationCollector::getClassesByAnnotation(ValidationRule::class) as $class => $annotation) {
+        foreach ([
+            ...array_keys(AnnotationCollector::getClassesByAnnotation(ValidationRule::class)),
+            ...config('validation.rules', [])
+        ] as $class) {
             $rule = make($class);
 
             if (!$rule instanceof ValidationRuleInterface) {
