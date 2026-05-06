@@ -11,7 +11,6 @@ use Hyperf\Validation\Event\ValidatorFactoryResolved;
 use Override;
 
 use function Hyperf\Config\config;
-use function Hyperf\Support\make;
 
 /**
  * 验证器工厂解决事件监听器
@@ -50,36 +49,36 @@ class ValidatorFactoryResolvedListener implements ListenerInterface
             return $validator;
         });
 
-        foreach ([
-            ...array_keys(AnnotationCollector::getClassesByAnnotation(ValidationRule::class)),
-            ...config('validation.rules', [])
-        ] as $class) {
-            $rule = make($class);
-
-            if (!$rule instanceof ValidationRuleInterface) {
+        foreach (
+            [
+                ...array_keys(AnnotationCollector::getClassesByAnnotation(ValidationRule::class)),
+                ...config('validation.rules', [])
+            ] as $class
+        ) {
+            if (!is_subclass_of($class, ValidationRuleInterface::class)) {
                 continue;
             }
 
-            switch ($rule->type()) {
+            switch ($class::type()) {
                 case ValidationRuleType::DEFAULT:
-                    $validatorFactory->extend($rule->name(), $rule->validator(), $rule->message());
+                    $validatorFactory->extend($class::name(), $class::validator(), $class::message());
                     break;
                 case ValidationRuleType::IMPLICIT:
-                    $validatorFactory->extendImplicit($rule->name(), $rule->validator(), $rule->message());
+                    $validatorFactory->extendImplicit($class::name(), $class::validator(), $class::message());
                     break;
                 case ValidationRuleType::DEPENDENT:
-                    $validatorFactory->extendDependent($rule->name(), $rule->validator(), $rule->message());
+                    $validatorFactory->extendDependent($class::name(), $class::validator(), $class::message());
                     break;
                 case ValidationRuleType::NUMERIC:
-                    $validatorFactory->extendNumeric($rule->name(), $rule->validator(), $rule->message());
+                    $validatorFactory->extendNumeric($class::name(), $class::validator(), $class::message());
                     break;
                 default:
-                    throw new Exception('Unsupported validation rule type: ' . $rule->type());
+                    throw new Exception('Unsupported validation rule type: ' . $class::type());
                     break;
             }
 
-            if ($replacer = $rule->replacer()) {
-                $validatorFactory->replacer($rule->name(), $replacer);
+            if ($replacer = $class::replacer()) {
+                $validatorFactory->replacer($class::name(), $replacer);
             }
         }
     }

@@ -22,7 +22,7 @@ abstract class AbstractValidationRule implements ValidationRuleInterface
      * @author Verdient。
      */
     #[Override]
-    public function name(): string
+    public static function name(): string
     {
         $attributes = ReflectionManager::reflectClass(static::class)->getAttributes(ValidationRule::class);
 
@@ -42,7 +42,7 @@ abstract class AbstractValidationRule implements ValidationRuleInterface
      * @author Verdient。
      */
     #[Override]
-    public function type(): ValidationRuleType
+    public static function type(): ValidationRuleType
     {
         $attributes = ReflectionManager::reflectClass(static::class)->getAttributes(ValidationRule::class);
 
@@ -60,7 +60,7 @@ abstract class AbstractValidationRule implements ValidationRuleInterface
      * @author Verdient。
      */
     #[Override]
-    public function message(): ?string
+    public static function message(): ?string
     {
         return null;
     }
@@ -69,7 +69,7 @@ abstract class AbstractValidationRule implements ValidationRuleInterface
      * @author Verdient。
      */
     #[Override]
-    public function replacer(): Closure|string|null
+    public static function replacer(): Closure|string|null
     {
         return null;
     }

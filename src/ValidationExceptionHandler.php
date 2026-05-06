@@ -37,7 +37,7 @@ class ValidationExceptionHandler extends ExceptionHandler
             $code = $throwable->status;
             $messageBag = $throwable->validator->errors();
             $message = $messageBag->first();
-            $errors = $messageBag->all();
+            $errors = $messageBag->getMessages();
         }
         try {
             $result = Json::encode([

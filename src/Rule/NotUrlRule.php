@@ -23,7 +23,7 @@ class NotUrlRule extends AbstractValidationRule
      * @author Verdient。
      */
     #[Override]
-    public function name(): string
+    public static function name(): string
     {
         return 'not_url';
     }
@@ -32,7 +32,7 @@ class NotUrlRule extends AbstractValidationRule
      * @author Verdient。
      */
     #[Override]
-    public function type(): ValidationRuleType
+    public static function type(): ValidationRuleType
     {
         return ValidationRuleType::DEFAULT;
     }
@@ -41,7 +41,7 @@ class NotUrlRule extends AbstractValidationRule
      * @author Verdient。
      */
     #[Override]
-    public function validator(): Closure|string
+    public static function validator(): Closure|string
     {
         return (function ($attribute, $value, $parameters, $validator) {
             if (!is_string($value)) {

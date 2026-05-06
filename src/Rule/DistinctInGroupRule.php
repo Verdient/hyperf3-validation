@@ -20,7 +20,7 @@ class DistinctInGroupRule extends AbstractValidationRule
      * @author Verdient。
      */
     #[Override]
-    public function name(): string
+    public static function name(): string
     {
         return 'distinct_in_group';
     }
@@ -29,7 +29,7 @@ class DistinctInGroupRule extends AbstractValidationRule
      * @author Verdient。
      */
     #[Override]
-    public function type(): ValidationRuleType
+    public static function type(): ValidationRuleType
     {
         return ValidationRuleType::DEFAULT;
     }
@@ -38,7 +38,7 @@ class DistinctInGroupRule extends AbstractValidationRule
      * @author Verdient。
      */
     #[Override]
-    public function validator(): Closure|string
+    public static function validator(): Closure|string
     {
         return (function ($attribute, $value, $parameters, $validator) {
             $keys = explode('.', $attribute);

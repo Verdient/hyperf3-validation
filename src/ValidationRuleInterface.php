@@ -18,33 +18,33 @@ interface ValidationRuleInterface
      *
      * @author Verdient。
      */
-    public function name(): string;
+    public static function name(): string;
 
     /**
      * 校验规则类型
      *
      * @author Verdient。
      */
-    public function type(): ValidationRuleType;
+    public static function type(): ValidationRuleType;
 
     /**
      * 校验方法
      *
      * @author Verdient。
      */
-    public function validator(): Closure|string;
+    public static function validator(): Closure|string;
 
     /**
      * 提示信息
      *
      * @author Verdient。
      */
-    public function message(): ?string;
+    public static function message(): ?string;
 
     /**
      * 替换器
      *
      * @author Verdient。
      */
-    public function replacer(): Closure|string|null;
+    public static function replacer(): Closure|string|null;
 }
