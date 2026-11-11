@@ -22,6 +22,6 @@ class BodyRequest extends FormRequest
     #[Override]
     protected function validationData(): array
     {
-        return $this->getParsedBody();
+        return (array) $this->getParsedBody();
     }
 }
