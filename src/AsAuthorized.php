@@ -16,7 +16,6 @@ trait AsAuthorized
     /**
      * @author Verdient。
      */
-    #[Override]
     protected function authorize(): bool
     {
         return true;
